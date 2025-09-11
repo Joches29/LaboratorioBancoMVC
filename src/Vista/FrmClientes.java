@@ -2,114 +2,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Clientes;
+package Vista;
 
-import java.util.Objects;
-import javax.swing.JOptionPane;
+import Controlador.ControladorClientes;
+import Modelo.Cliente;
+import Modelo.ServicioClientes;
+import Vista.IVista;
+import Vista.UtilGui;
 
 /**
  *
  * @author jprod
  */
-public class FrmClientes extends javax.swing.JInternalFrame {
-    private GestorClientes gestor;
-    private Cliente cliente;
+public class FrmClientes extends javax.swing.JInternalFrame implements IVista<Cliente> {
+    private ControladorClientes controlador;
     /**
      * Creates new form FrmClientes
      */
-    public FrmClientes() {
+    private FrmClientes() {
         initComponents();
-        gestor= new GestorClientes();
     }
     
-    private void limpiar(){
-        this.txtCedula.setText("");
-        this.txtNombre.setText("");
-        this.txtCorreo.setText("");
-        this.txtTelefono.setText("");
+    public FrmClientes(ServicioClientes servicio) {
+        this();
+        controlador=new ControladorClientes(servicio,this);
     }
     
-    private void validarLlavePrimaria(){
-        String id = txtCedula.getText();
-        if(id.isBlank()||!gestor.existe(id)) return;
-        if (mostrarConfirmacion("El id ingresado ya se encuentra registrado, desea cargar el registro?", "Id Duplicado")==JOptionPane.NO_OPTION) return;
-        cliente=gestor.buscar(id);
-        mostrarDatos(cliente);
-    }
-    
-    private void guardar(){
-        String id = txtCedula.getText();
-        String nombre = txtNombre.getText();
-        String correo = txtCorreo.getText();
-        String telefono = txtTelefono.getText();
-        validarNoVacios(id,nombre,correo,telefono);
-        cliente=new Cliente(id,nombre,correo,telefono);
-        gestor.guardar(cliente);
-        mostrarDatos(cliente);
-        mostrarMensaje("El registro se agrego correctamente", "Registro exitoso");
-    }
-    
-    private void validarNoVacios(String... valores){
-        for (String valor : valores) {
-            if (valor == null || valor.isBlank()) {
-                throw new IllegalArgumentException("Faltan datos requeridos");
-            }
-        }
-    }
-    
-    private void cancelar(){
-        Objects.requireNonNull(cliente, "No se ha cargado ningun registro");
-        mostrarDatos(cliente);
-    }
-    
-    private void mostrarDatos(Cliente cliente){
-        this.txtCedula.setText(cliente.getId());
-        this.txtNombre.setText(cliente.getNombre());
-        this.txtCorreo.setText(cliente.getCorreo());
-        this.txtTelefono.setText(cliente.getTelefono());
-    }
-    
-    private void actualizar(){
-        Objects.requireNonNull(cliente, "No se ha cargado ningun registro");
-        String correo = txtCorreo.getText();
-        String telefono = txtTelefono.getText();
-        validarNoVacios(correo,telefono);
-        cliente.setCorreo(correo);
-        cliente.setTelefono(telefono);
-        gestor.actualizar(cliente);
-        mostrarDatos(cliente);
-    }
-    
-    private void eliminar(){
-        Objects.requireNonNull(cliente, "No se ha cargado ningun registro");
-        if (mostrarConfirmacion("Esta seguro que desea eliminar el registro?", "Eliminar Registro")==JOptionPane.NO_OPTION) return;
-        gestor.eliminar(cliente.getId());
-        cliente=null;
-        limpiar();
-    }
-    
-    private void buscar(){
-        String id = JOptionPane.showInputDialog(this, "Ingrese el id del cliente", "Buscar cliente", JOptionPane.QUESTION_MESSAGE);
-        validarNoVacios(id);
-        Cliente clienteTemp=gestor.buscar(id);
-        Objects.requireNonNull(clienteTemp, "No se ha encontrado ningun registro");
-        cliente=clienteTemp;
-        mostrarDatos(cliente);
-    }
-    
-    private int mostrarConfirmacion(String msg, String titulo){
-        return JOptionPane.showConfirmDialog(this, msg, titulo, JOptionPane.YES_NO_OPTION);
-    }
-    
-    private void mostrarMensaje(String msg, String titulo){
-        JOptionPane.showMessageDialog(this, msg, titulo, JOptionPane.INFORMATION_MESSAGE);
-    }
-    
-    private void mostrarError(String msg){
-        JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,16 +72,10 @@ public class FrmClientes extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCedula.setText("         ");
         txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCedula.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCedulaFocusLost(evt);
-            }
-        });
-        txtCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCedulaActionPerformed(evt);
             }
         });
 
@@ -240,7 +152,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/limpiar.png"))); // NOI18N
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/limpiar.png"))); // NOI18N
         btnNuevo.setToolTipText("Limpiar");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +160,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/guardar.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/guardar.png"))); // NOI18N
         btnGuardar.setToolTipText("Limpiar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,7 +168,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/actualizar.png"))); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/actualizar.png"))); // NOI18N
         btnActualizar.setToolTipText("Limpiar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,7 +176,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/eliminar.png"))); // NOI18N
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/eliminar.png"))); // NOI18N
         btnEliminar.setToolTipText("Limpiar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,7 +184,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/cancelar.png"))); // NOI18N
         btnCancelar.setToolTipText("Limpiar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,7 +192,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/buscar.png"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Iconos/buscar.png"))); // NOI18N
         btnBuscar.setToolTipText("Limpiar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,56 +255,44 @@ public class FrmClientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        habilitarCampos();
         limpiar();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try{
-            guardar();
-        }catch(Exception e){
-            mostrarError(e.getMessage());
-        }
+        String id = txtCedula.getText();
+        String nombre = txtNombre.getText();
+        String correo = txtCorreo.getText();
+        String telefono = txtTelefono.getText();
+        controlador.guardar(id,nombre,correo,telefono);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        try{
-            cancelar();
-        }catch(Exception e){
-            mostrarError(e.getMessage());
-        }
+        controlador.cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        try{
-            actualizar();
-        }catch(Exception e){
-            mostrarError(e.getMessage());
-        }
+        String id = txtCedula.getText();
+        String correo = txtCorreo.getText();
+        String telefono = txtTelefono.getText();
+        controlador.actualizar(id, correo, telefono);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        try{
-            eliminar();
-        }catch(Exception e){
-            mostrarError(e.getMessage());
-        }
+        String id = txtCedula.getText();
+        controlador.eliminar(id);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try{
-            buscar();
-        }catch(Exception e){
-            mostrarError(e.getMessage());
-        }
+        controlador.buscar(solicitar("Ingrese el id del cliente", "Buscar Registro"));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCedulaFocusLost
-        validarLlavePrimaria();
+        if (!txtCedula.isEditable()) return;
+        String id = txtCedula.getText();
+        if(id.isBlank()) return;
+        controlador.validarIdDisponible(id);
     }//GEN-LAST:event_txtCedulaFocusLost
-
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -414,4 +314,47 @@ public class FrmClientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void limpiar(){
+        this.txtCedula.setText("");
+        this.txtNombre.setText("");
+        this.txtCorreo.setText("");
+        this.txtTelefono.setText("");
+        txtCedula.requestFocus();
+    }
+    
+    @Override
+    public void cambiarEstadoCampos(boolean estado){
+        this.txtCedula.setEditable(estado);
+        this.txtNombre.setEditable(estado);
+    }
+        
+    @Override
+    public void mostrarDatos(Cliente cliente){
+        this.txtCedula.setText(cliente.getId());
+        this.txtNombre.setText(cliente.getNombre());
+        this.txtCorreo.setText(cliente.getCorreo());
+        this.txtTelefono.setText(cliente.getTelefono());
+    }
+    
+    @Override
+    public boolean confirmar(String msg, String titulo){
+        return UtilGui.confirmar(rootPane, msg, titulo);
+    }
+    
+    @Override
+    public void mostrarMensaje(String msg, String titulo){
+        UtilGui.mostrarMensaje(this, msg, titulo);
+    }
+    
+    @Override
+    public void mostrarError(String msg){
+        UtilGui.mostrarError(this, msg);
+    }
+    
+    @Override
+    public String solicitar(String msg, String titulo){
+        return UtilGui.solicitar(this, msg,titulo);
+    }
 }

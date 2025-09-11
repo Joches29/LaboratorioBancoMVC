@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Main;
+package Vista;
 
-import Clientes.FrmClientes;
+import Modelo.GestorClientesMem;
+import Modelo.IGestorClientes;
+import Modelo.ServicioClientes;
 import javax.swing.JFrame;
 
 /**
@@ -81,7 +83,9 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
-        FrmClientes frm = new FrmClientes();
+        IGestorClientes gestor = new GestorClientesMem();
+        ServicioClientes servicio=new ServicioClientes(gestor);
+        FrmClientes frm = new FrmClientes(servicio);
         this.dtpMenu.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_menuClientesActionPerformed
