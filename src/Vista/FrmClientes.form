@@ -150,7 +150,6 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCedulaFocusLost"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCedulaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -253,7 +252,7 @@
         <Component class="javax.swing.JButton" name="btnNuevo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/limpiar.png"/>
+              <Image iconType="3" name="/Vista/Iconos/limpiar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Limpiar"/>
           </Properties>
@@ -264,7 +263,7 @@
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/guardar.png"/>
+              <Image iconType="3" name="/Vista/Iconos/guardar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Limpiar"/>
           </Properties>
@@ -275,7 +274,7 @@
         <Component class="javax.swing.JButton" name="btnActualizar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/actualizar.png"/>
+              <Image iconType="3" name="/Vista/Iconos/actualizar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Limpiar"/>
           </Properties>
@@ -286,7 +285,7 @@
         <Component class="javax.swing.JButton" name="btnEliminar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/eliminar.png"/>
+              <Image iconType="3" name="/Vista/Iconos/eliminar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Limpiar"/>
           </Properties>
@@ -297,7 +296,7 @@
         <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/cancelar.png"/>
+              <Image iconType="3" name="/Vista/Iconos/cancelar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Limpiar"/>
           </Properties>
@@ -308,7 +307,7 @@
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/buscar.png"/>
+              <Image iconType="3" name="/Vista/Iconos/buscar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Limpiar"/>
           </Properties>
