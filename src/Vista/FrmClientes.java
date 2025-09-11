@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Clientes;
+package Vista;
 
+import Modelo.GestorClientes;
+import Modelo.Cliente;
 import java.util.Objects;
 import javax.swing.JOptionPane;
 
@@ -154,7 +156,6 @@ public class FrmClientes extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCedula.setText("         ");
         txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtCedula.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
