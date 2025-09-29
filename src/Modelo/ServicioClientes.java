@@ -26,6 +26,9 @@ public class ServicioClientes {
         validarRequeridos(id, nombre, correo, telefono);
         if (gestor.existe(id)) throw new IllegalArgumentException("Ya existe un registro con id=" + id);
         if (!EMAIL.matcher(correo).matches()) throw new IllegalArgumentException("Formato de correo inválido");
+        
+        nombre = capitalizarNombre(nombre);
+        
         gestor.guardar(new Cliente(id, nombre, correo, telefono, preferencial));
     }
     
@@ -81,4 +84,15 @@ public class ServicioClientes {
         validarRequeridos(correo,telefono);
         return !(cliente.getCorreo().equals(correo) && cliente.getTelefono().equals(telefono));
     }
+    
+    private String capitalizarNombre(String nombre) {
+        String[] palabras = nombre.trim().toLowerCase().split("\\s+");
+        for (int i = 0; i < palabras.length; i++) {
+            if (!palabras[i].isEmpty()) {
+                palabras[i] = Character.toUpperCase(palabras[i].charAt(0)) + palabras[i].substring(1);
+            }
+        }
+        return String.join(" ", palabras);
+    }
+    
 }
