@@ -15,11 +15,19 @@ import java.util.regex.Pattern;
  * @author jprod
  */
 public class ServicioClientes {
+    private static ServicioClientes instancia;
     private final IGestorClientes gestor;
     private static final Pattern EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
 
-    public ServicioClientes(IGestorClientes gestor) {
-        this.gestor = gestor;
+    private ServicioClientes() {
+        this.gestor = GestorClientesMem.getInstancia();
+    }
+    
+    public static ServicioClientes getInstancia() {
+        if (instancia == null) {
+            instancia = new ServicioClientes();
+        }
+        return instancia;
     }
     
     public void guardar(String id, String nombre, String correo, String telefono, boolean preferencial) {
