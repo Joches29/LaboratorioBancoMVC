@@ -20,9 +20,9 @@ public class ControladorClientes {
         this.vista = vista;
     }
     
-    public void guardar(String id,String nombre,String correo, String telefono){
+    public void guardar(String id,String nombre,String correo, String telefono, boolean preferencial){
         try{
-            servicio.guardar(id,nombre,correo, telefono);
+            servicio.guardar(id,nombre,correo, telefono, preferencial);
             vista.deshabilitarCampos();
             vista.mostrarMensaje("El registro se agrego correctamente", "Registro exitoso");
         }catch(Exception ex){
@@ -30,9 +30,9 @@ public class ControladorClientes {
         }
     }
 
-    public void actualizar(String id, String correo, String telefono){
+    public void actualizar(String id, String correo, String telefono, boolean preferencial){
         try{
-            servicio.actualizar(id,correo,telefono);
+            servicio.actualizar(id,correo,telefono, preferencial);
             vista.mostrarDatos(servicio.buscar(id));
             vista.mostrarMensaje("El registro actualizado correctamente", "Actualizacion exitosa");
         }catch(Exception ex){

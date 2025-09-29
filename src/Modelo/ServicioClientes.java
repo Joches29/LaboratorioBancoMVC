@@ -22,14 +22,14 @@ public class ServicioClientes {
         this.gestor = gestor;
     }
     
-    public void guardar(String id, String nombre, String correo, String telefono) {
+    public void guardar(String id, String nombre, String correo, String telefono, boolean preferencial) {
         validarRequeridos(id, nombre, correo, telefono);
         if (gestor.existe(id)) throw new IllegalArgumentException("Ya existe un registro con id=" + id);
         if (!EMAIL.matcher(correo).matches()) throw new IllegalArgumentException("Formato de correo inválido");
-        gestor.guardar(new Cliente(id, nombre, correo, telefono));
+        gestor.guardar(new Cliente(id, nombre, correo, telefono, preferencial));
     }
     
-    public void actualizar(String id, String correo, String telefono) {
+    public void actualizar(String id, String correo, String telefono, boolean preferencial) {
         Objects.requireNonNull(ultimoRegistro(), "No se ha cargado ningun registro");
         validarRequeridos(id, correo, telefono);
         if(!hayCambios(id, correo, telefono)) return;
@@ -38,6 +38,7 @@ public class ServicioClientes {
         Cliente cliente=gestor.buscar(id);
         cliente.setCorreo(correo);
         cliente.setTelefono(telefono);
+        cliente.setPreferencial(preferencial);
         gestor.actualizar(cliente);
     }
     
