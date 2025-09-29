@@ -4,10 +4,7 @@
  */
 package Vista;
 
-import Modelo.GestorClientesMem;
-import Modelo.GestorHistoricoClientes;
-import Modelo.IGestorClientes;
-import Modelo.IGestorHistoricoClientes;
+
 import Modelo.ServicioClientes;
 import javax.swing.JFrame;
 
@@ -25,6 +22,7 @@ public class FrmMain extends javax.swing.JFrame {
     public FrmMain() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
     }
 
     /**
@@ -40,6 +38,9 @@ public class FrmMain extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuAdmin = new javax.swing.JMenu();
         menuClientes = new javax.swing.JMenuItem();
+        menuCuentas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuTransacciones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +67,30 @@ public class FrmMain extends javax.swing.JFrame {
         });
         menuAdmin.add(menuClientes);
 
+        menuCuentas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuCuentas.setText("Cuentas");
+        menuCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCuentasActionPerformed(evt);
+            }
+        });
+        menuAdmin.add(menuCuentas);
+
         menuBar.add(menuAdmin);
+
+        jMenu1.setText("Tramites");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        menuTransacciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuTransacciones.setText("Transacciones");
+        menuTransacciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTransaccionesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuTransacciones);
+
+        menuBar.add(jMenu1);
 
         setJMenuBar(menuBar);
 
@@ -85,13 +109,24 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
-        IGestorClientes gestor = new GestorClientesMem();
-        IGestorHistoricoClientes gestorHistorico = new GestorHistoricoClientes();
-        ServicioClientes servicio=new ServicioClientes(gestor, gestorHistorico);
+        ServicioClientes servicio = ServicioClientes.getInstancia();
         FrmClientes frm = new FrmClientes(servicio);
         this.dtpMenu.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_menuClientesActionPerformed
+
+    private void menuCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCuentasActionPerformed
+        ServicioClientes servicio = ServicioClientes.getInstancia();
+        FrmCuentas frm = new FrmCuentas(servicio);
+        this.dtpMenu.add(frm);   // "escritorio" es tu JDesktopPane
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuCuentasActionPerformed
+
+    private void menuTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTransaccionesActionPerformed
+        FrmTransacciones frm = new FrmTransacciones();
+        dtpMenu.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuTransaccionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,8 +155,11 @@ public class FrmMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dtpMenu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu menuAdmin;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuClientes;
+    private javax.swing.JMenuItem menuCuentas;
+    private javax.swing.JMenuItem menuTransacciones;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,8 +12,20 @@ import java.util.List;
  * @author Brwni
  */
 public class GestorHistoricoClientes implements IGestorHistoricoClientes {
+    private static GestorHistoricoClientes instancia;
+    private final List<Cliente> historico;
 
-    private final List<Cliente> historico = new ArrayList<>();
+    private  GestorHistoricoClientes() {
+        this.historico = new ArrayList();
+    }
+    
+    public static GestorHistoricoClientes getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorHistoricoClientes();
+        }
+        return instancia;
+    }
+    
 
     @Override
     public void guardar(Cliente cliente) {

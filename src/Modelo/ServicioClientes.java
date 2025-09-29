@@ -4,8 +4,6 @@
  */
 package Modelo;
 
-import Modelo.Cliente;
-import Modelo.IGestorClientes;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -15,13 +13,22 @@ import java.util.regex.Pattern;
  * @author jprod
  */
 public class ServicioClientes {
+    private static ServicioClientes instancia;
     private final IGestorClientes gestor;
     private final IGestorHistoricoClientes gestorHistorico;
     private static final Pattern EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
 
-    public ServicioClientes(IGestorClientes gestor, IGestorHistoricoClientes gestorHistorico) {
-        this.gestor = gestor;
-        this.gestorHistorico = gestorHistorico;
+
+    private ServicioClientes() {
+        this.gestor = GestorClientesMem.getInstancia();
+        this.gestorHistorico = GestorHistoricoClientes.getInstancia();
+    }
+    
+    public static ServicioClientes getInstancia() {
+        if (instancia == null) {
+            instancia = new ServicioClientes();
+        }
+        return instancia;
     }
     
     public void guardar(String id, String nombre, String correo, String telefono, boolean preferencial) {

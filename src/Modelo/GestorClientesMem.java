@@ -15,6 +15,7 @@ import java.util.Objects;
  * @author jprod
  */
 public class GestorClientesMem implements IGestorClientes {
+    private static GestorClientesMem instancia;
     private final HashMap<String, Cliente> map;
     private Cliente cliente;
 
@@ -23,9 +24,16 @@ public class GestorClientesMem implements IGestorClientes {
         return cliente;
     }
     
-    public GestorClientesMem() {
+    private GestorClientesMem() {
         map = new HashMap<>();
         cliente=null;
+    }
+    
+    public static GestorClientesMem getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorClientesMem();
+        }
+        return instancia;
     }
     
     @Override
