@@ -109,16 +109,16 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
-        ServicioClientes servicio = ServicioClientes.getInstancia();
-        FrmClientes frm = new FrmClientes(servicio);
+    
+        FrmClientes frm = new FrmClientes();
         this.dtpMenu.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_menuClientesActionPerformed
 
     private void menuCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCuentasActionPerformed
-        ServicioClientes servicio = ServicioClientes.getInstancia();
-        FrmCuentas frm = new FrmCuentas(servicio);
-        this.dtpMenu.add(frm);   // "escritorio" es tu JDesktopPane
+     
+        FrmCuentas frm = new FrmCuentas();
+        this.dtpMenu.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_menuCuentasActionPerformed
 
