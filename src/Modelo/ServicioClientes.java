@@ -16,10 +16,12 @@ import java.util.regex.Pattern;
  */
 public class ServicioClientes {
     private final IGestorClientes gestor;
+    private final IGestorHistoricoClientes gestorHistorico;
     private static final Pattern EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
 
-    public ServicioClientes(IGestorClientes gestor) {
+    public ServicioClientes(IGestorClientes gestor, IGestorHistoricoClientes gestorHistorico) {
         this.gestor = gestor;
+        this.gestorHistorico = gestorHistorico;
     }
     
     public void guardar(String id, String nombre, String correo, String telefono, boolean preferencial) {

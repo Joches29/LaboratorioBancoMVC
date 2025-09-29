@@ -5,7 +5,9 @@
 package Vista;
 
 import Modelo.GestorClientesMem;
+import Modelo.GestorHistoricoClientes;
 import Modelo.IGestorClientes;
+import Modelo.IGestorHistoricoClientes;
 import Modelo.ServicioClientes;
 import javax.swing.JFrame;
 
@@ -84,7 +86,8 @@ public class FrmMain extends javax.swing.JFrame {
 
     private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
         IGestorClientes gestor = new GestorClientesMem();
-        ServicioClientes servicio=new ServicioClientes(gestor);
+        IGestorHistoricoClientes gestorHistorico = new GestorHistoricoClientes();
+        ServicioClientes servicio=new ServicioClientes(gestor, gestorHistorico);
         FrmClientes frm = new FrmClientes(servicio);
         this.dtpMenu.add(frm);
         frm.setVisible(true);
