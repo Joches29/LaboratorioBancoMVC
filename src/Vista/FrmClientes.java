@@ -19,13 +19,14 @@ public class FrmClientes extends javax.swing.JInternalFrame implements IVista<Cl
     /**
      * Creates new form FrmClientes
      */
-    private FrmClientes() {
-        initComponents();
+    public FrmClientes() {
+         this(ServicioClientes.getInstancia());
+        
     }
     
     public FrmClientes(ServicioClientes servicio) {
-        this();
-        controlador=new ControladorClientes(servicio,this);
+        initComponents();
+        controlador = new ControladorClientes(servicio, this);
     }
     
     /**
